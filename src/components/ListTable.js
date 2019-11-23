@@ -1,38 +1,41 @@
-import React from 'react';
-import ListTableRow from './ListTableRow';
-import { Table, Header, Image, Dropdown } from 'semantic-ui-react';
-import styled from 'styled-components';
-import styles from '../styles/listTableStyles.css';
+import React from "react";
+import ListTableRow from "./ListTableRow";
+import { Table, Header, Image, Dropdown } from "semantic-ui-react";
+import styled from "styled-components";
+import styles from "../styles/listTableStyles.css";
+import IssueCard from "./IssueCard";
 
 const dropdownOptions = [
-  { key: 'recent', text:  'Most recent', value: 'recent' },
-  { key: 'location', text:  'Zip', value: 'location' },
-  { key: 'category', text:  'Category', value: 'category' },
-
-]
+  { key: "recent", text: "Most recent", value: "recent" },
+  { key: "location", text: "Zip", value: "location" },
+  { key: "category", text: "Category", value: "category" }
+];
 
 function ListTable(props) {
-    return (
-    <Table basic='very' celled collapsing className="list-table">
-      <Table.Header className="column-header">
-        <Table.Row>
-          <Table.HeaderCell textAlign="center">
-            Issue   
-          </Table.HeaderCell>
-          <Table.HeaderCell textAlign="center">Category</Table.HeaderCell>
-          <Table.HeaderCell textAlign="center">Upvotes</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-
-      <Table.Body className="table-body">
+  return (
+    <IssuesList>
       {/* { issues.map( issue => <ListCard key={issue.id} data={issue}  /> )}     */}
-      { props.issues && props.issues.map( issue =>
-            <ListTableRow issue={issue} />
-          )}
-      </Table.Body>
-    </Table>
-      )
+      {props.issues &&
+        props.issues.map(issue => (
+          // <ListTableRow issue={issue} />
+          <IssueCard issue={issue} />
+        ))}
+    </IssuesList>
+  );
 }
 
-export default ListTable;
+// const FeedContainer = styled.div`
+//   width: 100%;
+//   display: flex;
+//   // flex-wrap: nowrap;
+//   // overflow-x: auto;
+//   // margin-left: 1%;
+// `;
+const IssuesList = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
+export default ListTable;
