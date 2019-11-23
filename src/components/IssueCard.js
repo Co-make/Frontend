@@ -21,12 +21,21 @@ import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345,
-    marginBottom: 20
+    width: 400,
+    // marginBottom: 20,
+    margin: 30
   },
   media: {
     height: 0,
     paddingTop: "56.25%" // 16:9
+  },
+  postActivity: {
+    justifyContent: "space-between",
+    borderTop: "1px solid lightgray",
+    padding: 0,
+    paddingLeft: 10,
+    paddingRight: 20,
+    alignItems: "center"
   },
   expand: {
     transform: "rotate(0deg)",
@@ -154,12 +163,12 @@ function IssueCard(props) {
         subheader={issue.zipCode}
       />
       <CardMedia className={classes.media} image={issue.picture} />
-      <CardContent>
+      {/* <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {issue.description}
         </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
+      </CardContent> */}
+      <CardActions className={classes.postActivity} disableSpacing>
         <IconButton aria-label="add to favorites" onClick={upvoteHandler}>
           <ThumbUpAltOutlinedIcon />
         </IconButton>
@@ -178,6 +187,12 @@ function IssueCard(props) {
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>Description:</Typography>
+          <Typography paragraph>{issue.description}</Typography>
+        </CardContent>
+      </Collapse>
     </Card>
   );
 }

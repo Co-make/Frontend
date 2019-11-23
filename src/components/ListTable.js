@@ -36,6 +36,7 @@ const IssuesList = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export default ListTable;
