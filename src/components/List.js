@@ -7,15 +7,25 @@ import FooterNav from './FooterNav';
 import ListTable from './ListTable';
 import { Button, Image, Card, Icon } from 'semantic-ui-react'
 import styles from '../styles/listStyles.css';
+import { Pagination } from 'semantic-ui-react'
+
 
 function List(props) {
   const [issues, setIssues] = useState([]);
   const [currentUser, setCurrentUser] = useState({})
   const [issuesCreated, setIssuesCreated] = useState([]);
+  const [activePage, setActivepage] = useState(1)
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [issuesPerPage] = useState(5);
+
 
   let localId = JSON.parse(localStorage.getItem('id'))
   let token = JSON.parse(localStorage.getItem('token'))
+
+
   useEffect(() => {
+    setLoading(true);
       axios
         .get('https://co-make.herokuapp.com/issues', {
           headers: {
@@ -34,12 +44,26 @@ function List(props) {
             console.log("USER DATA FROM SERVER", res)
             setCurrentUser(res.data)
             setIssuesCreated(res.data.issues.length)
+            setLoading(false);
           })
-            .catch( err => console.log("OH NO AN ERROR HAPPENED", err))
+            .catch( err => {
+              console.log("OH NO AN ERROR HAPPENED", err)
+              setLoading(false);
+            })
 
       })
-        .catch( err => console.log("OH NO AN ERROR HAPPENED", err))
+      .catch( err => {
+        console.log("OH NO AN ERROR HAPPENED", err)
+        setLoading(false);
+      })
     },[])
+
+    const paginate = pageNumber => setActivepage(pageNumber);
+
+    // Pagination
+  const indexOfLastIssue = activePage * issuesPerPage;
+  const indexOfFirstIssue = indexOfLastIssue - issuesPerPage;
+  const currentIssues = issues.slice(indexOfFirstIssue, indexOfLastIssue);
 
   return (
     <>
@@ -52,14 +76,27 @@ function List(props) {
         description={`You have posted ${issuesCreated} times since joining Comake!`}
       />
 
+
       <ListWrapper>
 
         {/* Issues List */}
 
-        <ListTable issues={issues}/>
+        <ListTable issues={currentIssues}/>
+
+        <PaginationStyles>
+          <Pagination
+            activePage={activePage}
+            totalPages={Math.ceil(issues.length / issuesPerPage)}
+            siblingRange={1}
+            onPageChange={(e,{activePage})=> paginate(activePage)}
+            firstItem={null}
+            lastItem={null}
+          />
+        </PaginationStyles>
 
         {/* Fixed Footer */}
 
+              </ListWrapper>
         <footer className="footer-nav">
           <Nav className="bottom-nav">
 
@@ -79,7 +116,6 @@ function List(props) {
             </Button.Group>
           </Nav>
         </footer>
-      </ListWrapper>
     </>
   )
 }
@@ -87,8 +123,13 @@ function List(props) {
 const ListWrapper = styled.div`
   max-width: 1024px;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
 
+`
+
+const PaginationStyles = styled.div`
+  display: flex;
+  justify-content: center;
 `
 
 const UserWrapper = styled.div`
