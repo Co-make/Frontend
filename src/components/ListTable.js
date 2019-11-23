@@ -14,23 +14,11 @@ const dropdownOptions = [
 function ListTable(props) {
   return (
     <IssuesList>
-      {/* { issues.map( issue => <ListCard key={issue.id} data={issue}  /> )}     */}
-      {props.issues &&
-        props.issues.map(issue => (
-          // <ListTableRow issue={issue} />
-          <IssueCard issue={issue} />
-        ))}
+      {props.issues && props.issues.map(issue => <IssueCard issue={issue} />)}
     </IssuesList>
   );
 }
 
-// const FeedContainer = styled.div`
-//   width: 100%;
-//   display: flex;
-//   // flex-wrap: nowrap;
-//   // overflow-x: auto;
-//   // margin-left: 1%;
-// `;
 const IssuesList = styled.div`
   width: 100%;
   display: flex;
