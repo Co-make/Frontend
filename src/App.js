@@ -1,15 +1,13 @@
-import Logo from './images/logo.png'
+
 import React, {useState} from 'react';
 import List from './components/List';
 import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import AddIssue from './components/AddIssue';
-import { Route, Redirect, Link } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import {useLocalStorage} from './hooks/useLocalStorage';
-import styled from 'styled-components';
-import styles from './styles/ProfileStyles.css'
-import { Button } from 'semantic-ui-react';
+import Layout from './components/Layout'
 
 
 function App(props) {
@@ -19,49 +17,11 @@ function App(props) {
   const [zipCode, setZipCode] = useLocalStorage('zipcode', '')
   const [message, setMessage] = useState('')
 
-  const Nav = styled.nav`
-  display: block;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #5477BB;
-  font-family: 'helvetica', sans serif;
-  a {color:#FFFF;};
-  height: 90px;
-  margin-bottom: 30px;
-  font-size: 1.2rem;
-  font-weight: bold;  
-  width: 100%;  
-  `
-  const logOut = () => {
-    localStorage.removeItem('zipcode');
-    localStorage.removeItem('id');
-    setToken('')
-    localStorage.removeItem('token');
-    // return <Redirect to="/login" />
-  }
-
- 
-
 
   return (
     <div className="App">
 
-      <header className="App-header">
-      <nav className='nav-container'>
-      <Nav>
-          <div className ='logotext'><img className='logo' src={Logo}></img>omake</div>
-          <a href='https://flamboyant-mayer-055230.netlify.com/index.html'>Home</a>
-          <a href='https://flamboyant-mayer-055230.netlify.com/aboutus.html'>About Us</a>
-          {token ? <Link to="/login"><Button color='facebook' size='medium' onClick={logOut}>Logout</Button></Link> : token === "" ? <></> : <></> }
-        </Nav>
-        </nav>
-      </header>
-
-
-
-      {/* ROUTES  */}
-
+    <Layout token={token} setToken={setToken} localId={localId}>
       <Route exact path="/" render={ props =>
           localStorage.getItem("token") ? (
             <List {...props} />
@@ -98,7 +58,7 @@ function App(props) {
         setMessage={setMessage}
         {...props} />}
       />
-
+    </Layout>
     </div>
   );
 }

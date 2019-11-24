@@ -122,7 +122,7 @@ function Profile(props) {
 
         <ProfileTable currentUser={currentUser} handleEditIssue={handleEditIssue} deleteIssue={deleteIssue} />
 
-        <footer className="footer-nav">
+        {/* <footer className="footer-nav">
           <Nav className="bottom-nav">
 
             <Button.Group widths="3" size="big">
@@ -140,7 +140,7 @@ function Profile(props) {
               />
             </Button.Group>
           </Nav>
-        </footer>
+        </footer> */}
           </Body>
 
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import ListCard from './ListCard';
+
 import FooterNav from './FooterNav';
 import ListTable from './ListTable';
 import { Button, Image, Card, Icon } from 'semantic-ui-react'
@@ -97,25 +97,7 @@ function List(props) {
         {/* Fixed Footer */}
 
               </ListWrapper>
-        <footer className="footer-nav">
-          <Nav className="bottom-nav">
 
-            <Button.Group widths="3" size="big">
-              <Button icon="list alternate outline"
-                      content='Feed'
-                      onClick={() => props.history.push("#")}
-              />
-              <Button icon="add"
-                      content='Create Issue'
-                      onClick={() => props.history.push("/addIssue")}
-              />
-              <Button icon="user"
-                      content='Profile'
-                      onClick={() => props.history.push(`/profile/${localId}`)}
-              />
-            </Button.Group>
-          </Nav>
-        </footer>
     </>
   )
 }
@@ -168,17 +150,5 @@ const LocationInfo = styled.p`
   font-weight: bold;
 `
 
-const Nav = styled.nav`
-display: flex;
-border: none;
-justify-content: space-evenly;
-align-items: center;
-font-family: 'helvetica', sans serif;
-a {color:#eb472c;
-  text-decoration: none}
-height: 50px;
-font-size: 1.2rem;
-font-weight: bold;
-`
 
 export default List;
