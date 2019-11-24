@@ -42,21 +42,27 @@ const Layout = props => {
 
       <FooterNav className="bottom-nav">
         <Button.Group widths="3" size="big">
+          <Link to="/">
           <Button
             icon="list alternate outline"
             content="Feed"
-            onClick={() => props.history.push("#")}
+
           />
+          </Link>
+          <Link to="/addIssue">
           <Button
             icon="add"
             content="Create Issue"
-            onClick={() => props.history.push("/addIssue")}
+            // onClick={() => props.history.push("/addIssue")}
           />
+          </Link>
+          <Link to="/profile/:id">
           <Button
             icon="user"
             content="Profile"
-            onClick={() => props.history.push(`/profile/${props.localId}`)}
+            // onClick={() => props.history.push(`/profile/${props.localId}`)}
           />
+          </Link>
         </Button.Group>
       </FooterNav>
     </div>
@@ -73,11 +79,14 @@ const Nav = styled.nav`
   a {
     color: #ffff;
   }
-  height: 90px;
+  height: 50px;
   margin-bottom: 30px;
   font-size: 1.2rem;
   font-weight: bold;
   width: 100%;
+  @media (max-width: 600px) {
+    background: red;
+  }
 `;
 
 const FooterNav = styled.footer`
@@ -89,6 +98,8 @@ const FooterNav = styled.footer`
   height: 50px;
   font-size: 1.2rem;
   font-weight: bold;
+  position: fixed;
+  bottom: 0;
 `;
 
 export default Layout;
