@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Logo from "../images/logo.png";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
+import HomeIcon from '@material-ui/icons/Home';
+import InfoIcon from '@material-ui/icons/Info';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Drawer from '@material-ui/core/Drawer';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import List from '@material-ui/core/List';
 
 const Layout = props => {
+  const [menu, setMenu] = useState(false)
+
   const logOut = () => {
     localStorage.removeItem("zipcode");
     localStorage.removeItem("id");
@@ -27,7 +39,7 @@ const Layout = props => {
         </a>
         {props.token ? (
           <Link to="/login">
-            <Button color="facebook" size="medium" onClick={logOut}>
+            <Button color="facebook" fontSize="medium" onClick={logOut}>
               Logout
             </Button>
           </Link>
@@ -36,11 +48,48 @@ const Layout = props => {
         ) : (
           <></>
         )}
+      <IconButton onClick={()=> setMenu(!menu)}><MenuRoundedIcon fontSize="large" /></IconButton>
+      <SideBar anchor="right" open={menu} onClose={()=> setMenu(false)}>
+      <List component="nav" aria-label="main">
+        <ListItem button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="About" />
+        </ListItem>
+        {props.token ? (
+          <Link to="/login">
+            <ListItem button onClick={logOut}>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <ListItem button>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Log In" />
+        </ListItem>
+          </Link>
+        )}
+
+      </List>
+      </SideBar>
       </Nav>
 
       {props.children}
 
-      <FooterNav className="bottom-nav">
+      {/* <FooterNav className="bottom-nav">
         <Button.Group widths="3" size="big">
           <Link to="/">
           <Button
@@ -64,10 +113,20 @@ const Layout = props => {
           />
           </Link>
         </Button.Group>
-      </FooterNav>
+      </FooterNav> */}
     </div>
   );
 };
+
+
+const SideBar = styled(Drawer)`
+.MuiDrawer-paper {
+  width: 300px;
+}
+ .MuiDrawer-paperAnchorRight {
+background: #5477bb;
+}
+`
 
 const Nav = styled.nav`
   display: block;

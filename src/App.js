@@ -12,7 +12,7 @@ import Layout from './components/Layout'
 
 function App(props) {
 
-  const [token, setToken] = useLocalStorage('token', '')
+  const [token, setToken] = useLocalStorage('token', null)
   const [localId, setLocalId] = useLocalStorage('id', '')
   const [zipCode, setZipCode] = useLocalStorage('zipcode', '')
   const [message, setMessage] = useState('')
