@@ -4,18 +4,25 @@ import axios from "axios";
 import styled from "styled-components";
 import ListCard from "./ListCard";
 import FooterNav from "./FooterNav";
+import IssuesList from "./IssuesList";
 import { Button, Image, Card, Icon } from "semantic-ui-react";
 import styles from "../styles/listStyles.css";
-import IssuesList from "./IssuesList";
+import { Pagination } from "semantic-ui-react";
 
 function List(props) {
   const [issues, setIssues] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [issuesCreated, setIssuesCreated] = useState([]);
+  const [activePage, setActivepage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [issuesPerPage] = useState(5);
 
   let localId = JSON.parse(localStorage.getItem("id"));
   let token = JSON.parse(localStorage.getItem("token"));
+
   useEffect(() => {
+    setLoading(true);
     axios
       .get("https://co-make.herokuapp.com/issues", {
         headers: {
@@ -34,11 +41,25 @@ function List(props) {
             console.log("USER DATA FROM SERVER", res);
             setCurrentUser(res.data);
             setIssuesCreated(res.data.issues.length);
+            setLoading(false);
           })
-          .catch(err => console.log("OH NO AN ERROR HAPPENED", err));
+          .catch(err => {
+            console.log("OH NO AN ERROR HAPPENED", err);
+            setLoading(false);
+          });
       })
-      .catch(err => console.log("OH NO AN ERROR HAPPENED", err));
+      .catch(err => {
+        console.log("OH NO AN ERROR HAPPENED", err);
+        setLoading(false);
+      });
   }, []);
+
+  const paginate = pageNumber => setActivepage(pageNumber);
+
+  // Pagination
+  const indexOfLastIssue = activePage * issuesPerPage;
+  const indexOfFirstIssue = indexOfLastIssue - issuesPerPage;
+  const currentIssues = issues.slice(indexOfFirstIssue, indexOfLastIssue);
 
   return (
     <Container>
@@ -55,7 +76,18 @@ function List(props) {
       <ListWrapper>
         {/* Issues List */}
 
-        <IssuesList issues={issues} />
+        <IssuesList issues={currentIssues} />
+
+        <PaginationStyles>
+          <Pagination
+            activePage={activePage}
+            totalPages={Math.ceil(issues.length / issuesPerPage)}
+            siblingRange={1}
+            onPageChange={(e, { activePage }) => paginate(activePage)}
+            firstItem={null}
+            lastItem={null}
+          />
+        </PaginationStyles>
 
         {/* Fixed Footer */}
 
@@ -144,6 +176,11 @@ const Nav = styled.nav`
   height: 50px;
   font-size: 1.2rem;
   font-weight: bold;
+`;
+
+const PaginationStyles = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export default List;
