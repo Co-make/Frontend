@@ -13,6 +13,7 @@ import avi from "../images/walter-avi.png";
 import EditIcon from "@material-ui/icons/Edit";
 import RoomIcon from "@material-ui/icons/Room";
 import IssuesList from "./IssuesList";
+import { device } from "../styles/breakpoints";
 
 const Container = styled.div`
   display: flex;
@@ -181,6 +182,7 @@ const ProfileContainer = styled.div`
   justify-content: center;
   margin-top: 7.1%;
   width: 100%;
+  background-color: #f8f8ff;
 `;
 
 const Banner = styled.div``;
@@ -212,14 +214,20 @@ const ProfileImage = styled.img`
 
 const MainProfile = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
+  @media ${device.tablet} {
+    flex-direction: row;
+  }
 `;
 
 const UserInfo = styled.div`
   margin-left: 2rem;
   h1 {
-    font-size: 4rem;
+    font-size: 3rem;
+    @media ${device.tablet} {
+      font-size: 4rem;
+    }
   }
   h4 {
     font-size: 2rem;

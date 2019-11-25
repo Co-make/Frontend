@@ -41,7 +41,7 @@ function List(props) {
   }, []);
 
   return (
-    <>
+    <Container>
       <Card
         className="user-card"
         raised
@@ -81,9 +81,13 @@ function List(props) {
           </Nav>
         </footer>
       </ListWrapper>
-    </>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  background-color: #f8f8ff;
+`;
 
 const ListWrapper = styled.div`
   max-width: 1024px;

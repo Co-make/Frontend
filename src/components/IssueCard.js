@@ -11,8 +11,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+import Chip from "@material-ui/core/Chip";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import axios from "axios";
@@ -176,6 +175,7 @@ function IssueCard(props) {
         <IconButton aria-label="share" onClick={downvoteHandler}>
           <ThumbDownOutlinedIcon />
         </IconButton>
+        <Chip label={issue.category} />
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
