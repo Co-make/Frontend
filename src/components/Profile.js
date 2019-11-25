@@ -12,6 +12,7 @@ import skyline from "../images/skyline.jpg";
 import avi from "../images/walter-avi.png";
 import EditIcon from "@material-ui/icons/Edit";
 import RoomIcon from "@material-ui/icons/Room";
+import IssuesList from "./IssuesList";
 
 const Container = styled.div`
   display: flex;
@@ -124,18 +125,28 @@ function Profile(props) {
                 alt="Profile"
               />
             </ImageCrop>
-            <UserInfo>
-              <h1>{currentUser.username}</h1>
-              <h4>
-                <RoomIcon />
-                {currentUser.zipCode}
-              </h4>
-              <EditIcon onClick={handleEdit} />
-            </UserInfo>
-            {/* <ProfileCard currentUser={currentUser} dog={handleEdit} image={currentUser.picture} />
 
-          <ProfileTable currentUser={currentUser} handleEditIssue={handleEditIssue} deleteIssue={deleteIssue} /> */}
+            <MainProfile>
+              <UserInfo>
+                <h1>{currentUser.username}</h1>
+                <h4>
+                  <RoomIcon />
+                  {currentUser.zipCode}
+                </h4>
+                <h4>{currentUser.email}</h4>
+                <EditIcon onClick={handleEdit} />
+              </UserInfo>
+              {/* <ProfileCard currentUser={currentUser} dog={handleEdit} image={currentUser.picture} />
 
+            <ProfileTable currentUser={currentUser} handleEditIssue={handleEditIssue} deleteIssue={deleteIssue} /> */}
+              <UsersIssues>
+                <h3>
+                  {currentUser.username} has voted on # issues in the community
+                </h3>
+                <h3>{currentUser.username}'s created issues:</h3>
+                <IssuesList issues={currentUser.issues} />
+              </UsersIssues>
+            </MainProfile>
             <footer className="footer-nav">
               <Nav className="bottom-nav">
                 <Button.Group widths="3" size="big">
@@ -199,6 +210,12 @@ const ProfileImage = styled.img`
   height: 150px;
 `;
 
+const MainProfile = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+
 const UserInfo = styled.div`
   margin-left: 2rem;
   h1 {
@@ -206,7 +223,10 @@ const UserInfo = styled.div`
   }
   h4 {
     font-size: 2rem;
+    margin: 0.5rem auto;
   }
 `;
+
+const UsersIssues = styled.div``;
 
 export default Profile;
