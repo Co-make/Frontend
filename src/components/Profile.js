@@ -135,11 +135,16 @@ function Profile(props) {
                   {currentUser.zipCode}
                 </h4>
                 <h4>{currentUser.email}</h4>
-                <EditIcon onClick={handleEdit} />
+                <h6>
+                  <EditIcon onClick={handleEdit} /> Edit Profile
+                </h6>
               </UserInfo>
-              {/* <ProfileCard currentUser={currentUser} dog={handleEdit} image={currentUser.picture} />
 
-            <ProfileTable currentUser={currentUser} handleEditIssue={handleEditIssue} deleteIssue={deleteIssue} /> */}
+              {/* <ProfileTable
+                currentUser={currentUser}
+                handleEditIssue={handleEditIssue}
+                deleteIssue={deleteIssue}
+              /> */}
               <UsersIssues>
                 <h3>
                   {currentUser.username} has voted on # issues in the community
@@ -181,6 +186,7 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-top: 7.1%;
+  padding-bottom: 5rem;
   width: 100%;
   background-color: #f8f8ff;
 `;
@@ -222,7 +228,13 @@ const MainProfile = styled.div`
 `;
 
 const UserInfo = styled.div`
-  margin-left: 2rem;
+  padding-left: 2rem;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 1rem;
+  @media ${device.tablet} {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
   h1 {
     font-size: 3rem;
     @media ${device.tablet} {
@@ -231,10 +243,15 @@ const UserInfo = styled.div`
   }
   h4 {
     font-size: 2rem;
-    margin: 0.5rem auto;
   }
 `;
 
-const UsersIssues = styled.div``;
+const UsersIssues = styled.div`
+  // margin-left: 2rem;
+  text-align: center;
+  @media ${device.tablet} {
+    margin-top: 2rem;
+  }
+`;
 
 export default Profile;

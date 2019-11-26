@@ -119,6 +119,8 @@ function List(props) {
 
 const Container = styled.div`
   background-color: #f8f8ff;
+  margin-top: -2rem;
+  padding-top: 1rem;
 `;
 
 const ListWrapper = styled.div`
@@ -181,6 +183,7 @@ const Nav = styled.nav`
 const PaginationStyles = styled.div`
   display: flex;
   justify-content: center;
+  padding-bottom: 5rem;
 `;
 
 export default List;
