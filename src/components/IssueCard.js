@@ -17,6 +17,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import axios from "axios";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
+import profile from "../images/walter-avi.png";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -46,6 +47,12 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     transform: "rotate(180deg)"
   },
+  button: {
+    padding: ".3rem"
+  },
+  chip: {
+    margin: "0 1rem"
+  },
   avatar: {
     backgroundColor: red[500]
   }
@@ -58,8 +65,10 @@ function IssueCard(props) {
   const [count, setCount] = useState(0);
   const [upvotes, setUpvotes] = useState(0);
   const [upvoteId, setUpvoteId] = useState(null);
+  const [issueCreator, setIssueCreator] = useState();
   let localId = JSON.parse(localStorage.getItem("id"));
   let token = JSON.parse(localStorage.getItem("token"));
+
   useEffect(() => {
     axios
       .get(`https://co-make.herokuapp.com/upvotes/issue/${props.issue.id}`, {
@@ -75,10 +84,28 @@ function IssueCard(props) {
       .catch(err => console.log("OH NO AN ERROR HAPPENED", err));
   }, []);
 
+  useEffect(() => {
+    let didCancel = false;
+    axios
+      .get(`https://co-make.herokuapp.com/users/${props.issue.user_id}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        console.log("issue creator", res.data);
+        setIssueCreator(res.data);
+      })
+      .catch(err => console.log("OH NO AN ERROR HAPPENED", err));
+
+    return () => {
+      didCancel = true;
+    };
+  }, []);
+
   let upvoteHandler = () => {
     console.log("User Id", props.issue.user_id);
     console.log("Issue Id", props.issue.id);
-    console.log("token", token);
     axios
       .post(
         "https://co-make.herokuapp.com/upvotes/issue",
@@ -144,14 +171,24 @@ function IssueCard(props) {
     setExpanded(!expanded);
   };
 
-  console.log("props", props.issue);
+  // console.log("props", props.issue);
   return (
     <Card raised className={classes.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
+          issueCreator ? (
+            <Avatar
+              aria-label="recipe"
+              className={classes.avatar}
+              src={!issueCreator.picture ? profile : issueCreator.picture}
+            ></Avatar>
+          ) : (
+            <Avatar
+              aria-label="recipe"
+              className={classes.avatar}
+              src={profile}
+            ></Avatar>
+          )
         }
         action={
           <IconButton aria-label="settings">
@@ -168,14 +205,24 @@ function IssueCard(props) {
         </Typography>
       </CardContent> */}
       <CardActions className={classes.postActivity} disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={upvoteHandler}>
+        <IconButton
+          className={classes.button}
+          aria-label="add to favorites"
+          onClick={upvoteHandler}
+        >
           <ThumbUpAltOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="add to favorites">{upvotes} upvotes</IconButton>
-        <IconButton aria-label="share" onClick={downvoteHandler}>
+        <IconButton className={classes.button} aria-label="add to favorites">
+          {upvotes} upvotes
+        </IconButton>
+        <IconButton
+          className={classes.button}
+          aria-label="share"
+          onClick={downvoteHandler}
+        >
           <ThumbDownOutlinedIcon />
         </IconButton>
-        <Chip label={issue.category} />
+        <Chip className={classes.chip} label={issue.category} />
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded

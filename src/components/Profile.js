@@ -118,7 +118,7 @@ function Profile(props) {
         ) : (
           <ProfileContainer>
             <Banner>
-              <BannerImage src={currentUser.picture || skyline} alt="Banner" />
+              <BannerImage src={skyline} alt="Banner" />
             </Banner>
             <ImageCrop>
               <ProfileImage
