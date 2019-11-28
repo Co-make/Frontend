@@ -18,6 +18,14 @@ import axios from "axios";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
 import profile from "../images/walter-avi.png";
+import construction from "../images/issue-pictures/construction.svg.png";
+import environment from "../images/issue-pictures/environment.png";
+import repair from "../images/issue-pictures/repair.png";
+import hazzard from "../images/issue-pictures/hazzard.png";
+import roadwork from "../images/issue-pictures/roadwork.png";
+import electric from "../images/issue-pictures/electric.png";
+import qmark from "../images/issue-pictures/no-pic.png";
+import landscape from "../images/issue-pictures/landscape.png";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -27,7 +35,8 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%", // 16:9
+    backgroundSize: "contain"
   },
   postActivity: {
     justifyContent: "space-between",
@@ -171,6 +180,31 @@ function IssueCard(props) {
     setExpanded(!expanded);
   };
 
+  // function that sets a default image for the issue based on category, if the user has not suplied one
+  const generateImage = () => {
+    if (
+      issue.category === "street/roadwork" ||
+      issue.category === "roadwork" ||
+      issue.category === "roads"
+    ) {
+      return roadwork;
+    } else if (issue.category === "environment") {
+      return environment;
+    } else if (issue.category === "safety") {
+      return hazzard;
+    } else if (issue.category === "repair") {
+      return repair;
+    } else if (issue.category === "construction") {
+      return construction;
+    } else if (issue.category === "electric") {
+      return electric;
+    } else if (issue.category === "landscaping") {
+      return landscape;
+    } else {
+      return qmark;
+    }
+  };
+
   // console.log("props", props.issue);
   return (
     <Card raised className={classes.card}>
@@ -198,7 +232,10 @@ function IssueCard(props) {
         title={issue.issue_name}
         subheader={issue.zipCode}
       />
-      <CardMedia className={classes.media} image={issue.picture} />
+      <CardMedia
+        className={classes.media}
+        image={!issue.picture ? generateImage() : issue.picture}
+      />
       {/* <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {issue.description}
