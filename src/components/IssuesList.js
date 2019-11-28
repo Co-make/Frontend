@@ -11,15 +11,16 @@ const dropdownOptions = [
   { key: "category", text: "Category", value: "category" }
 ];
 
-function ListTable(props) {
+function IssuesList(props) {
   return (
-    <IssuesList>
-      {props.issues && props.issues.map(issue => <IssueCard issue={issue} />)}
-    </IssuesList>
+    <IssueList>
+      {props.issues &&
+        props.issues.map(issue => <IssueCard issue={issue} key={issue.id} />)}
+    </IssueList>
   );
 }
 
-const IssuesList = styled.div`
+const IssueList = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -27,4 +28,4 @@ const IssuesList = styled.div`
   justify-content: center;
 `;
 
-export default ListTable;
+export default IssuesList;
