@@ -48,11 +48,8 @@ function App(props) {
             <div className="logotext">
               <img className="logo" src={Logo}></img>omake
             </div>
-            <a href="https://flamboyant-mayer-055230.netlify.com/index.html">
-              Home
-            </a>
             <a href="https://flamboyant-mayer-055230.netlify.com/aboutus.html">
-              About Us
+              About
             </a>
             {token ? (
               <Link to="/login">

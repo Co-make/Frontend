@@ -63,16 +63,7 @@ function List(props) {
 
   return (
     <Container>
-      <Card
-        className="user-card"
-        raised
-        centered
-        image={currentUser.picture}
-        header={currentUser.username}
-        meta={currentUser.zipCode}
-        description={`You have posted ${issuesCreated} times since joining Comake!`}
-      />
-
+      <ListCard currentUser={currentUser} />
       <ListWrapper>
         {/* Issues List */}
 

@@ -135,16 +135,11 @@ function Profile(props) {
                   {currentUser.zipCode}
                 </h4>
                 <h4>{currentUser.email}</h4>
-                <h6>
-                  <EditIcon onClick={handleEdit} /> Edit Profile
+                <h6 onClick={handleEdit}>
+                  <EditIcon /> Edit Profile
                 </h6>
               </UserInfo>
 
-              {/* <ProfileTable
-                currentUser={currentUser}
-                handleEditIssue={handleEditIssue}
-                deleteIssue={deleteIssue}
-              /> */}
               <UsersIssues>
                 <h3>
                   {currentUser.username} has voted on # issues in the community
