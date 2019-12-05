@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import EditProfile from "./EditProfile";
+import EditPro from "./EditPro";
 import { Button, Card, Icon, Image, Table } from "semantic-ui-react";
 import EditIssue from "./EditIssue";
 import styled from "styled-components";
@@ -14,32 +15,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import RoomIcon from "@material-ui/icons/Room";
 import IssuesList from "./IssuesList";
 import { device } from "../styles/breakpoints";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-const Body = styled.div`
-  flex-direction: column;
-`;
-
-const PCard = styled.div`
-  width: 500px;
-`;
-const Nav = styled.nav`
-  display: flex;
-  border: none;
-  justify-content: space-evenly;
-  align-items: center;
-  font-family: "helvetica", sans serif;
-  a {
-    color: #eb472c;
-    text-decoration: none;
-  }
-  height: 50px;
-  font-size: 1.2rem;
-  font-weight: bold;
-`;
 
 function Profile(props) {
   const [currentUser, setCurrentUser] = useState("");
@@ -100,81 +75,86 @@ function Profile(props) {
   };
 
   return (
-    <>
-      <Container>
-        {isEditingUser ? (
-          <EditProfile
-            handleEdit={handleEdit}
-            currentUser={currentUser}
-            setCurrentUser={setCurrentUser}
-          />
-        ) : isEditingIssue ? (
-          <EditIssue
-            setCurrentUser={setCurrentUser}
-            setIsEditingIssue={setIsEditingIssue}
-            isEditingIssue={isEditingIssue}
-            issueToUpdate={issueToUpdate}
-          />
-        ) : (
-          <ProfileContainer>
-            <Banner>
-              <BannerImage src={skyline} alt="Banner" />
-            </Banner>
-            <ImageCrop>
-              <ProfileImage
-                src={currentUser.picture ? currentUser.picture : avi}
-                alt="Profile"
-              />
-            </ImageCrop>
+    <Container>
+      {isEditingUser ? (
+        <EditPro
+          handleEdit={handleEdit}
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
+      ) : isEditingIssue ? (
+        <EditIssue
+          setCurrentUser={setCurrentUser}
+          setIsEditingIssue={setIsEditingIssue}
+          isEditingIssue={isEditingIssue}
+          issueToUpdate={issueToUpdate}
+        />
+      ) : (
+        <ProfileContainer>
+          <Banner>
+            <BannerImage src={skyline} alt="Banner" />
+          </Banner>
+          <ImageCrop>
+            <ProfileImage
+              src={currentUser.picture ? currentUser.picture : avi}
+              alt="Profile"
+            />
+          </ImageCrop>
 
-            <MainProfile>
-              <UserInfo>
-                <h1>{currentUser.username}</h1>
-                <h4>
-                  <RoomIcon />
-                  {currentUser.zipCode}
-                </h4>
-                <h4>{currentUser.email}</h4>
-                <h6 onClick={handleEdit}>
-                  <EditIcon /> Edit Profile
-                </h6>
-              </UserInfo>
+          <MainProfile>
+            <UserInfo>
+              <h1>{currentUser.username}</h1>
+              <h4>
+                <RoomIcon />
+                {currentUser.zipCode}
+              </h4>
+              <h4>{currentUser.email}</h4>
+              <h6 onClick={handleEdit}>
+                <EditIcon /> Edit Profile
+              </h6>
+            </UserInfo>
 
-              <UsersIssues>
-                <h3>
-                  {currentUser.username} has voted on # issues in the community
-                </h3>
-                <h3>{currentUser.username}'s created issues:</h3>
-                <IssuesList issues={currentUser.issues} />
-              </UsersIssues>
-            </MainProfile>
-            <footer className="footer-nav">
-              <Nav className="bottom-nav">
-                <Button.Group widths="3" size="big">
-                  <Button
-                    icon="list alternate outline"
-                    content="Feed"
-                    onClick={() => props.history.push("/")}
-                  />
-                  <Button
-                    icon="add"
-                    content="Create Issue"
-                    onClick={() => props.history.push("/addIssue")}
-                  />
-                  <Button
-                    icon="user"
-                    content="Profile"
-                    onClick={() => props.history.push(`/profile/${localId}`)}
-                  />
-                </Button.Group>
-              </Nav>
-            </footer>
-          </ProfileContainer>
-        )}
-      </Container>
-    </>
+            <UsersIssues>
+              <h3>
+                {currentUser.username} has voted on # issues in the community
+              </h3>
+              <h3>{currentUser.username}'s created issues:</h3>
+              <IssuesList issues={currentUser.issues} />
+            </UsersIssues>
+          </MainProfile>
+          <footer className="footer-nav">
+            <Nav className="bottom-nav">
+              <Button.Group widths="3" size="big">
+                <Button
+                  icon="list alternate outline"
+                  content="Feed"
+                  onClick={() => props.history.push("/")}
+                />
+                <Button
+                  icon="add"
+                  content="Create Issue"
+                  onClick={() => props.history.push("/addIssue")}
+                />
+                <Button
+                  icon="user"
+                  content="Profile"
+                  onClick={() => props.history.push(`/profile/${localId}`)}
+                />
+              </Button.Group>
+            </Nav>
+          </footer>
+        </ProfileContainer>
+      )}
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+`;
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -247,6 +227,21 @@ const UsersIssues = styled.div`
   @media ${device.tablet} {
     margin-top: 2rem;
   }
+`;
+
+const Nav = styled.nav`
+  display: flex;
+  border: none;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: "helvetica", sans serif;
+  a {
+    color: #eb472c;
+    text-decoration: none;
+  }
+  height: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
 `;
 
 export default Profile;
