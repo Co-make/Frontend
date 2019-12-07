@@ -34,20 +34,19 @@ const Layout = props => {
     <div>
       <Nav>
         <Logo src={CoMakeLogo}/>
-        {/* <a href="https://flamboyant-mayer-055230.netlify.com/index.html">
-          Home
-        </a> */}
 
-
+      {/* Side Bar */}
       <IconButton color="default" onClick={()=> setMenu(!menu)}><MenuRoundedIcon fontSize="large" /></IconButton>
       <SideBar anchor="right" open={menu} onClose={()=> setMenu(false)}>
       <List component="nav" aria-label="main">
+        <Link to="/">
         <ListItem button>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
+        </Link>
         <ListItem button>
           <ListItemIcon>
             <InfoIcon />
@@ -78,8 +77,11 @@ const Layout = props => {
       </SideBar>
       </Nav>
 
+      {/*--Important-- This renders all children */}
       {props.children}
 
+
+      {/* Footer */}
       <FooterNav className="bottom-nav">
         {/* <Button.Group widths="3" size="big">
           <Link to="/">
@@ -141,7 +143,7 @@ background: #5477bb;
 `
 
 const Nav = styled.nav`
-  /* display: block; */
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -163,10 +165,10 @@ const Nav = styled.nav`
 
 const FooterNav = styled.footer`
   display: flex;
-  width: 100%;
+  width: 100vw;
   border: none;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: center;
+  /* align-items: center; */
   font-family: "helvetica", sans serif;
   height: 50px;
   font-size: 1.2rem;
@@ -177,6 +179,7 @@ const FooterNav = styled.footer`
   &&&{
     .MuiButtonGroup-root {
       width: 50%;
+      align-self: center;
     }
     .MuiIconButton-root {
       /* background-color: yellow; */

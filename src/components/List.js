@@ -8,7 +8,7 @@ import ListTable from './ListTable';
 import { Button, Image, Card, Icon } from 'semantic-ui-react'
 import styles from '../styles/listStyles.css';
 import { Pagination } from 'semantic-ui-react'
-
+import Scroll from 'react-scroll'
 
 function List(props) {
   const [issues, setIssues] = useState([]);
@@ -19,7 +19,7 @@ function List(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [issuesPerPage] = useState(5);
 
-
+  var scroll = Scroll.animateScroll;
   let localId = JSON.parse(localStorage.getItem('id'))
   let token = JSON.parse(localStorage.getItem('token'))
 
@@ -57,8 +57,12 @@ function List(props) {
         setLoading(false);
       })
     },[])
-
-    const paginate = pageNumber => setActivepage(pageNumber);
+    // Scroll to top on page change
+    useEffect(() => { scroll.scrollToTop({smooth: false});}, [activePage])
+    // On page change set active page
+    const paginate = pageNumber => {
+    return  setActivepage(pageNumber)
+    };
 
     // Pagination
   const indexOfLastIssue = activePage * issuesPerPage;
@@ -85,16 +89,16 @@ function List(props) {
 
         <PaginationStyles>
           <Pagination
-            activePage={activePage}
             totalPages={Math.ceil(issues.length / issuesPerPage)}
-            siblingRange={1}
             onPageChange={(e,{activePage})=> paginate(activePage)}
+            boundaryRange={0}
+            defaultActivePage={1}
+            ellipsisItem={null}
             firstItem={null}
             lastItem={null}
+            siblingRange={2}
           />
         </PaginationStyles>
-
-        {/* Fixed Footer */}
 
               </ListWrapper>
 
@@ -104,6 +108,7 @@ function List(props) {
 
 const ListWrapper = styled.div`
   max-width: 1024px;
+
   width: 100%;
   margin: 0 auto 2rem auto;
 
@@ -112,6 +117,10 @@ const ListWrapper = styled.div`
 const PaginationStyles = styled.div`
   display: flex;
   justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
 `
 
 const UserWrapper = styled.div`

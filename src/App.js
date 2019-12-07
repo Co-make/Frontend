@@ -29,7 +29,7 @@ function App(props) {
             <Redirect to="/login" />
           )
         }/>
-      <Route exact path="/profile/:id" render={ props =>
+      <Route exact path="/profile" render={ props =>
           localStorage.getItem("token") ? (
             <Profile {...props} />
           ) : (
