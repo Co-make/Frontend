@@ -106,21 +106,47 @@ const Layout = props => {
           />
           </Link>
         </Button.Group> */}
+        <AddIssueLink to="/addIssue">
           <Fab aria-label="add">
         <AddIcon fontSize="large"/>
           </Fab>
+          </AddIssueLink>
           <ButtonGroup size="large" variant="text">
+          <HomeBottomLink to="/">
           <IconButton><HomeIcon fontSize="large"/></IconButton>
+          </HomeBottomLink>
+          <ProfileBottomLink to="/profile">
           <IconButton ><AccountCircleIcon fontSize="large"/></IconButton>
+          </ProfileBottomLink>
         </ButtonGroup>
       </FooterNav>
     </div>
   );
 };
 
+
+// Stlyes
+
 const Logo = styled.img`
 width: 75px;
 
+`
+
+const AddIssueLink = styled(Link)`
+/* right: 50%; */
+position: absolute;
+bottom: 20px;
+`
+const ProfileBottomLink = styled(Link)`
+/* right: 50%; */
+width: 50%;
+/* border-radius: 5%; */
+`
+
+const HomeBottomLink = styled(Link)`
+/* right: 50%; */
+width: 50%;
+/* border-radius: 5%; */
 `
 
 const SideBar = styled(Drawer)`
@@ -183,13 +209,11 @@ const FooterNav = styled.footer`
     }
     .MuiIconButton-root {
       /* background-color: yellow; */
-      width: 50%;
+      /* width: 50%; */
       border-radius: 5%;
+      width: 100%;
     }
   .MuiFab-root {
-position: absolute;
-bottom: 20px;
-align-self: center;
 width: 70px;
 height: 70px;
 border-radius: 100%;
