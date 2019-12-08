@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import styled from 'styled-components';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-import ListTable from './ListTable';
-import { Card } from 'semantic-ui-react'
-import { Pagination } from 'semantic-ui-react'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styled from "styled-components";
+import IssuesList from "./IssuesList";
+import { Button, Image, Card, Icon } from "semantic-ui-react";
+import { Pagination } from "semantic-ui-react";
 import Scroll from 'react-scroll'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function List(props) {
   const [issues, setIssues] = useState([]);
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState({});
   const [issuesCreated, setIssuesCreated] = useState([]);
-  const [activePage, setActivepage] = useState(1)
+  const [activePage, setActivepage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [issuesPerPage] = useState(5);
@@ -25,34 +23,33 @@ function List(props) {
 
   useEffect(() => {
     setLoading(true);
-      axios
-        .get('https://co-make.herokuapp.com/issues', {
-          headers: {
-            Authorization: token
-          }
-         })
-        .then( res => {
-          setIssues(res.data);
-          axios
-           .get(`https://co-make.herokuapp.com/users/${localId}/issues`, {
-              headers: {
-                Authorization: token
-              }
-             })
-            .then( res => {
-            console.log("USER DATA FROM SERVER", res)
-            setCurrentUser(res.data)
-            setIssuesCreated(res.data.issues.length)
+    axios
+      .get("https://co-make.herokuapp.com/issues", {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        setIssues(res.data);
+        axios
+          .get(`https://co-make.herokuapp.com/users/${localId}/issues`, {
+            headers: {
+              Authorization: token
+            }
+          })
+          .then(res => {
+            console.log("USER DATA FROM SERVER", res);
+            setCurrentUser(res.data);
+            setIssuesCreated(res.data.issues.length);
             setLoading(false);
           })
-            .catch( err => {
-              console.log("OH NO AN ERROR HAPPENED", err)
-              setLoading(false);
-            })
-
+          .catch(err => {
+            console.log("OH NO AN ERROR HAPPENED", err);
+            setLoading(false);
+          });
       })
-      .catch( err => {
-        console.log("OH NO AN ERROR HAPPENED", err)
+      .catch(err => {
+        console.log("OH NO AN ERROR HAPPENED", err);
         setLoading(false);
       })
     },[])
@@ -63,7 +60,7 @@ function List(props) {
     return  setActivepage(pageNumber)
     };
 
-    // Pagination
+  // Pagination
   const indexOfLastIssue = activePage * issuesPerPage;
   const indexOfFirstIssue = indexOfLastIssue - issuesPerPage;
   const currentIssues = issues.slice(indexOfFirstIssue, indexOfLastIssue);
@@ -79,12 +76,10 @@ function List(props) {
         description={`You have posted ${issuesCreated} times since joining Comake!`}
       />
 
-
       <ListWrapper>
-
         {/* Issues List */}
 
-        <ListTable issues={currentIssues}/>
+        <IssuesList issues={currentIssues} />
 
         <PaginationStyles>
           <Pagination
@@ -136,35 +131,35 @@ const UserWrapper = styled.div`
   padding-bottom: 30px;
   border-bottom: 1px solid black;
   height: 500px;
-`
+`;
 
 const WelcomeImage = styled.img`
   height: 200px;
   width: 200px;
-`
+`;
 
 const UserInfo = styled.p`
   margin: 0px;
   font-weight: bold;
   font-size: 36px;
   text-align: center;
-`
+`;
 
 const UserAddress = styled.address`
   color: darkgray;
   font-size: 18px;
-`
+`;
 
 const LocationWrapper = styled.div`
   margin-top: 30px;
-`
+`;
 
 const LocationInfo = styled.p`
   margin: 0px;
   padding-left: 150px;
   padding-bottom: 10px;
   font-weight: bold;
-`
+`;
 
 
 export default List;
