@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import FooterNav from './FooterNav';
 import ListTable from './ListTable';
-import { Button, Image, Card, Icon } from 'semantic-ui-react'
-import styles from '../styles/listStyles.css';
+import { Card } from 'semantic-ui-react'
 import { Pagination } from 'semantic-ui-react'
 import Scroll from 'react-scroll'
 
@@ -70,7 +69,7 @@ function List(props) {
   const currentIssues = issues.slice(indexOfFirstIssue, indexOfLastIssue);
 
   return (
-    <>
+    <> { loading ? <LoaderWrapper><CircularProgress /></LoaderWrapper> : ( <>
       <Card className="user-card"
         raised
         centered
@@ -101,10 +100,18 @@ function List(props) {
         </PaginationStyles>
 
               </ListWrapper>
-
+   </> )}
     </>
   )
 }
+
+const LoaderWrapper = styled.div`
+width: 100%;
+display:flex;
+justify-content:center;
+align-items: center;
+height: 50vh
+`
 
 const ListWrapper = styled.div`
   max-width: 1024px;

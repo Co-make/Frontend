@@ -2,12 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import EditProfile from './EditProfile';
-import { Button, Card, Icon, Image, Table } from 'semantic-ui-react';
 import EditIssue from './EditIssue';
 import styled from 'styled-components';
 import ProfileTable from './ProfileTable';
 import ProfileCard from './ProfileCard';
-import styles from '../styles/listStyles.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 const Container = styled.div`
@@ -41,10 +41,12 @@ function Profile(props) {
     const [isEditingUser, setIsEditingUser] = useState(false);
     const [isEditingIssue, setIsEditingIssue] = useState(false);
     const [issueToUpdate, setIssueToUpdate] = useState({})
+    const [loading, setLoading] = useState(false);
     let token = JSON.parse(localStorage.getItem('token'))
     let localId = JSON.parse(localStorage.getItem('id'))
 
     useEffect(()=>{
+      setLoading(true);
         axios
            .get(`https://co-make.herokuapp.com/users/${localId}/issues`, {
               headers: {
@@ -54,6 +56,7 @@ function Profile(props) {
             .then( res => {
             console.log("USER DATA FROM SERVER", res)
             setCurrentUser(res.data)
+            setLoading(false)
           })
             .catch( err => console.log("OH NO AN ERROR HAPPENED", err))
         },[])
@@ -95,7 +98,7 @@ function Profile(props) {
 
     return (
       <>
-
+      { loading ? <LoaderWrapper><CircularProgress /></LoaderWrapper> : (
         <Container>
 
       { isEditingUser ? (
@@ -122,25 +125,6 @@ function Profile(props) {
 
         <ProfileTable currentUser={currentUser} handleEditIssue={handleEditIssue} deleteIssue={deleteIssue} />
 
-        {/* <footer className="footer-nav">
-          <Nav className="bottom-nav">
-
-            <Button.Group widths="3" size="big">
-              <Button icon="list alternate outline"
-                      content='Feed'
-                      onClick={() => props.history.push("/")}
-              />
-              <Button icon="add"
-                      content='Create Issue'
-                      onClick={() => props.history.push("/addIssue")}
-              />
-              <Button icon="user"
-                      content='Profile'
-                      onClick={() => props.history.push(`/profile/${localId}`)}
-              />
-            </Button.Group>
-          </Nav>
-        </footer> */}
           </Body>
 
 
@@ -149,9 +133,18 @@ function Profile(props) {
         )
         }
        </Container>
+      )}
       </>
     )
   }
+
+  const LoaderWrapper = styled.div`
+  width: 100%;
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  height: 50vh
+  `
 
   export default Profile;
 

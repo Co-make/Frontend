@@ -33,7 +33,9 @@ const Layout = props => {
   return (
     <div>
       <Nav>
+        <Link to="/">
         <Logo src={CoMakeLogo}/>
+        </Link>
 
       {/* Side Bar */}
       <IconButton color="default" onClick={()=> setMenu(!menu)}><MenuRoundedIcon fontSize="large" /></IconButton>
@@ -83,29 +85,6 @@ const Layout = props => {
 
       {/* Footer */}
       <FooterNav className="bottom-nav">
-        {/* <Button.Group widths="3" size="big">
-          <Link to="/">
-          <Button
-            icon="list alternate outline"
-            content="Feed"
-
-          />
-          </Link>
-          <Link to="/addIssue">
-          <Button
-            icon="add"
-            content="Create Issue"
-            // onClick={() => props.history.push("/addIssue")}
-          />
-          </Link>
-          <Link to="/profile/:id">
-          <Button
-            icon="user"
-            content="Profile"
-            // onClick={() => props.history.push(`/profile/${props.localId}`)}
-          />
-          </Link>
-        </Button.Group> */}
         <AddIssueLink to="/addIssue">
           <Fab aria-label="add">
         <AddIcon fontSize="large"/>
@@ -125,7 +104,7 @@ const Layout = props => {
 };
 
 
-// Stlyes
+// Styles
 
 const Logo = styled.img`
 width: 75px;
