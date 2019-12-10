@@ -4,8 +4,9 @@ import styled from "styled-components";
 import IssuesList from "./IssuesList";
 import { Button, Image, Card, Icon } from "semantic-ui-react";
 import { Pagination } from "semantic-ui-react";
-import Scroll from 'react-scroll'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Scroll from "react-scroll";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import ListCard from "./ListCard";
 
 function List(props) {
   const [issues, setIssues] = useState([]);
@@ -17,9 +18,8 @@ function List(props) {
   const [issuesPerPage] = useState(5);
 
   var scroll = Scroll.animateScroll;
-  let localId = JSON.parse(localStorage.getItem('id'))
-  let token = JSON.parse(localStorage.getItem('token'))
-
+  let localId = JSON.parse(localStorage.getItem("id"));
+  let token = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
     setLoading(true);
@@ -51,14 +51,16 @@ function List(props) {
       .catch(err => {
         console.log("OH NO AN ERROR HAPPENED", err);
         setLoading(false);
-      })
-    },[])
-    // Scroll to top on page change
-    useEffect(() => { scroll.scrollToTop({smooth: false});}, [activePage])
-    // On page change set active page
-    const paginate = pageNumber => {
-    return  setActivepage(pageNumber)
-    };
+      });
+  }, []);
+  // Scroll to top on page change
+  useEffect(() => {
+    scroll.scrollToTop({ smooth: false });
+  }, [activePage]);
+  // On page change set active page
+  const paginate = pageNumber => {
+    return setActivepage(pageNumber);
+  };
 
   // Pagination
   const indexOfLastIssue = activePage * issuesPerPage;
@@ -66,55 +68,62 @@ function List(props) {
   const currentIssues = issues.slice(indexOfFirstIssue, indexOfLastIssue);
 
   return (
-    <> { loading ? <LoaderWrapper><CircularProgress /></LoaderWrapper> : ( <>
-      <Card className="user-card"
+    <>
+      {" "}
+      {loading ? (
+        <LoaderWrapper>
+          <CircularProgress />
+        </LoaderWrapper>
+      ) : (
+        <>
+          <ListCard currentUser={currentUser} />
+          {/* <Card className="user-card"
         raised
         centered
         image={currentUser.picture}
         header={currentUser.username}
         meta={currentUser.zipCode}
         description={`You have posted ${issuesCreated} times since joining Comake!`}
-      />
+      /> */}
 
-      <ListWrapper>
-        {/* Issues List */}
+          <ListWrapper>
+            {/* Issues List */}
 
-        <IssuesList issues={currentIssues} />
+            <IssuesList issues={currentIssues} />
 
-        <PaginationStyles>
-          <Pagination
-            totalPages={Math.ceil(issues.length / issuesPerPage)}
-            onPageChange={(e,{activePage})=> paginate(activePage)}
-            boundaryRange={0}
-            defaultActivePage={1}
-            ellipsisItem={null}
-            firstItem={null}
-            lastItem={null}
-            siblingRange={2}
-          />
-        </PaginationStyles>
-
-              </ListWrapper>
-   </> )}
+            <PaginationStyles>
+              <Pagination
+                totalPages={Math.ceil(issues.length / issuesPerPage)}
+                onPageChange={(e, { activePage }) => paginate(activePage)}
+                boundaryRange={0}
+                defaultActivePage={1}
+                ellipsisItem={null}
+                firstItem={null}
+                lastItem={null}
+                siblingRange={2}
+              />
+            </PaginationStyles>
+          </ListWrapper>
+        </>
+      )}
     </>
-  )
+  );
 }
 
 const LoaderWrapper = styled.div`
-width: 100%;
-display:flex;
-justify-content:center;
-align-items: center;
-height: 50vh
-`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+`;
 
 const ListWrapper = styled.div`
   max-width: 1024px;
 
   width: 100%;
   margin: 0 auto 2rem auto;
-
-`
+`;
 
 const PaginationStyles = styled.div`
   display: flex;
@@ -123,7 +132,7 @@ const PaginationStyles = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 100px;
-`
+`;
 
 const UserWrapper = styled.div`
   width: 100%;
@@ -160,6 +169,5 @@ const LocationInfo = styled.p`
   padding-bottom: 10px;
   font-weight: bold;
 `;
-
 
 export default List;
