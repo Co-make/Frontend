@@ -16,25 +16,6 @@ function App() {
 
   return (
     <div className="App">
-<<<<<<< HEAD
-      <header className="App-header">
-        <nav className="nav-container">
-          <Nav>
-            <div className="logotext">
-              <img className="logo" src={Logo}></img>omake
-            </div>
-            <a href="https://flamboyant-mayer-055230.netlify.com/aboutus.html">
-              About
-            </a>
-            {token ? (
-              <Link to="/login">
-                <Button color="facebook" size="medium" onClick={logOut}>
-                  Logout
-                </Button>
-              </Link>
-            ) : token === "" ? (
-              <></>
-=======
       <Layout token={token} setToken={setToken} localId={localId}>
         <Route
           exact
@@ -42,7 +23,6 @@ function App() {
           render={props =>
             localStorage.getItem("token") ? (
               <List {...props} />
->>>>>>> master
             ) : (
               <Redirect to="/login" />
             )
