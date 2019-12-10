@@ -14,8 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    width: "100%",
-    marginTop: 100
+    width: "100%"
     // marginBottom: 50
     // position: "fixed"
   },

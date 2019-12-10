@@ -6,6 +6,7 @@ import { Button, Image, Card, Icon } from "semantic-ui-react";
 import { Pagination } from "semantic-ui-react";
 import Scroll from "react-scroll";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ListCard from "./ListCard";
 
 function List(props) {
   const [issues, setIssues] = useState([]);
