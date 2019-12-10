@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import ListCard from "./ListCard";
-import FooterNav from "./FooterNav";
 import IssuesList from "./IssuesList";
 import { Button, Image, Card, Icon } from "semantic-ui-react";
-import styles from "../styles/listStyles.css";
 import { Pagination } from "semantic-ui-react";
+import Scroll from "react-scroll";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function List(props) {
   const [issues, setIssues] = useState([]);
@@ -18,6 +16,7 @@ function List(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [issuesPerPage] = useState(5);
 
+  var scroll = Scroll.animateScroll;
   let localId = JSON.parse(localStorage.getItem("id"));
   let token = JSON.parse(localStorage.getItem("token"));
 
@@ -53,8 +52,14 @@ function List(props) {
         setLoading(false);
       });
   }, []);
-
-  const paginate = pageNumber => setActivepage(pageNumber);
+  // Scroll to top on page change
+  useEffect(() => {
+    scroll.scrollToTop({ smooth: false });
+  }, [activePage]);
+  // On page change set active page
+  const paginate = pageNumber => {
+    return setActivepage(pageNumber);
+  };
 
   // Pagination
   const indexOfLastIssue = activePage * issuesPerPage;
@@ -62,62 +67,70 @@ function List(props) {
   const currentIssues = issues.slice(indexOfFirstIssue, indexOfLastIssue);
 
   return (
-    <Container>
-      <ListCard currentUser={currentUser} />
-      <ListWrapper>
-        {/* Issues List */}
+    <>
+      {" "}
+      {loading ? (
+        <LoaderWrapper>
+          <CircularProgress />
+        </LoaderWrapper>
+      ) : (
+        <>
+          <ListCard currentUser={currentUser} />
+          {/* <Card className="user-card"
+        raised
+        centered
+        image={currentUser.picture}
+        header={currentUser.username}
+        meta={currentUser.zipCode}
+        description={`You have posted ${issuesCreated} times since joining Comake!`}
+      /> */}
 
-        <IssuesList issues={currentIssues} />
+          <ListWrapper>
+            {/* Issues List */}
 
-        <PaginationStyles>
-          <Pagination
-            activePage={activePage}
-            totalPages={Math.ceil(issues.length / issuesPerPage)}
-            siblingRange={1}
-            onPageChange={(e, { activePage }) => paginate(activePage)}
-            firstItem={null}
-            lastItem={null}
-          />
-        </PaginationStyles>
+            <IssuesList issues={currentIssues} />
 
-        {/* Fixed Footer */}
-
-        <footer className="footer-nav">
-          <Nav className="bottom-nav">
-            <Button.Group widths="3" size="big">
-              <Button
-                icon="list alternate outline"
-                content="Feed"
-                onClick={() => props.history.push("#")}
+            <PaginationStyles>
+              <Pagination
+                totalPages={Math.ceil(issues.length / issuesPerPage)}
+                onPageChange={(e, { activePage }) => paginate(activePage)}
+                boundaryRange={0}
+                defaultActivePage={1}
+                ellipsisItem={null}
+                firstItem={null}
+                lastItem={null}
+                siblingRange={2}
               />
-              <Button
-                icon="add"
-                content="Create Issue"
-                onClick={() => props.history.push("/addIssue")}
-              />
-              <Button
-                icon="user"
-                content="Profile"
-                onClick={() => props.history.push(`/profile/${localId}`)}
-              />
-            </Button.Group>
-          </Nav>
-        </footer>
-      </ListWrapper>
-    </Container>
+            </PaginationStyles>
+          </ListWrapper>
+        </>
+      )}
+    </>
   );
 }
 
-const Container = styled.div`
-  background-color: #f8f8ff;
-  margin-top: -2rem;
-  padding-top: 1rem;
+const LoaderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
 `;
 
 const ListWrapper = styled.div`
   max-width: 1024px;
+
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
+`;
+
+const PaginationStyles = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
 `;
 
 const UserWrapper = styled.div`
@@ -154,27 +167,6 @@ const LocationInfo = styled.p`
   padding-left: 150px;
   padding-bottom: 10px;
   font-weight: bold;
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  border: none;
-  justify-content: space-evenly;
-  align-items: center;
-  font-family: "helvetica", sans serif;
-  a {
-    color: #eb472c;
-    text-decoration: none;
-  }
-  height: 50px;
-  font-size: 1.2rem;
-  font-weight: bold;
-`;
-
-const PaginationStyles = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-bottom: 5rem;
 `;
 
 export default List;

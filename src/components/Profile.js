@@ -6,9 +6,6 @@ import EditPro from "./EditPro";
 import { Button, Card, Icon, Image, Table } from "semantic-ui-react";
 import EditIssue from "./EditIssue";
 import styled from "styled-components";
-import ProfileTable from "./ProfileTable";
-import ProfileCard from "./ProfileCard";
-import styles from "../styles/listStyles.css";
 import skyline from "../images/skyline.jpg";
 import avi from "../images/walter-avi.png";
 import EditIcon from "@material-ui/icons/Edit";
@@ -56,23 +53,52 @@ function Profile(props) {
       })
       .then(res => {
         axios
-          .get(`https://co-make.herokuapp.com/users/${localId}/issues`, {
-            headers: {
-              Authorization: token
-            }
+           .get(`https://co-make.herokuapp.com/users/${localId}/issues`, {
+              headers: {
+                Authorization: token
+              }
+             })
+            .then( res => {
+            console.log("USER DATA FROM SERVER", res)
+            setCurrentUser(res.data)
+            setLoading(false)
           })
-          .then(res => {
-            console.log("NEW DATA FROM SERVER", res);
-            setCurrentUser(res.data);
-          })
-          .catch(err => {
-            console.log("OH NO", err);
-          });
-      })
-      .catch(err => {
-        console.log("Error on delete", err);
-      });
-  };
+            .catch( err => console.log("OH NO AN ERROR HAPPENED", err))
+        },[])
+
+        const handleEdit = e => {
+          setIsEditingUser(!isEditingUser);
+        };
+        const handleEditIssue = id => {
+          let thisIssue = currentUser.issues.filter( issue => issue.id === id);
+          setIssueToUpdate(...thisIssue)
+          setIsEditingIssue(!isEditingIssue)
+        }
+
+        const deleteIssue = id => {
+          axios
+            .delete(`https://co-make.herokuapp.com/issues/${id}`, {
+              headers: {
+                Authorization: token
+              }
+            })
+            .then( res => {
+
+              axios.get(`https://co-make.herokuapp.com/users/${localId}/issues`, {
+                headers: {
+                  Authorization: token
+                }
+               }).then( res => {
+                 console.log("NEW DATA FROM SERVER", res)
+                 setCurrentUser(res.data)
+               }).catch( err => {
+                 console.log("OH NO", err)
+               })
+            })
+            .catch( err => {
+              console.log("Error on delete", err)
+            })
+          }
 
   return (
     <Container>
@@ -169,11 +195,11 @@ const ProfileContainer = styled.div`
 const Banner = styled.div``;
 
 const BannerImage = styled.img`
-  width: 100%
+  width: 100%;
   border-bottom: 10px solid black;
   max-height: 225px;
   object-fit: cover;
-  `;
+  `
 
 const ImageCrop = styled.div`
   width: 150px;
@@ -219,10 +245,19 @@ const UserInfo = styled.div`
   h4 {
     font-size: 2rem;
   }
-`;
+`
+
+  const LoaderWrapper = styled.div`
+  width: 100%;
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  height: 50vh
+  `
+
 
 const UsersIssues = styled.div`
-  // margin-left: 2rem;
+  margin-left: 2rem;
   text-align: center;
   @media ${device.tablet} {
     margin-top: 2rem;
