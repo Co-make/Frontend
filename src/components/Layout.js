@@ -94,7 +94,7 @@ const Layout = props => {
           <HomeBottomLink to="/">
           <IconButton><HomeIcon fontSize="large"/></IconButton>
           </HomeBottomLink>
-          <ProfileBottomLink to="/profile">
+          <ProfileBottomLink data-testid="profile-button" to="/profile">
           <IconButton ><AccountCircleIcon fontSize="large"/></IconButton>
           </ProfileBottomLink>
         </ButtonGroup>
