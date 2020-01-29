@@ -1,31 +1,89 @@
-// import React, { useState, useEffect } from "react";
-// import { Icon } from "semantic-ui-react";
-// import styled from "styled-components";
-// import axios from "axios";
+import React from "react";
+import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import { red } from "@material-ui/core/colors";
+import profile from "../images/walter-avi.png";
+import Avatar from "@material-ui/core/Avatar";
 
-// function ListCard(props) {
-//   const [count, setCount] = useState(0);
-//   const [upvotes, setUpvotes] = useState(0);
-//   let token = JSON.parse(localStorage.getItem("token"));
+const useStyles = makeStyles(theme => ({
+  card: {
+    width: "100%"
+    // marginBottom: 50
+    // position: "fixed"
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+    backgroundSize: "contain"
+  },
+  postActivity: {
+    justifyContent: "space-between",
+    borderTop: "1px solid lightgray",
+    padding: 0,
+    paddingLeft: 10,
+    paddingRight: 20,
+    alignItems: "center"
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: "rotate(180deg)"
+  },
+  button: {
+    padding: ".3rem"
+  },
+  chip: {
+    margin: "0 1rem"
+  },
+  avatar: {
+    backgroundColor: red[500]
+  }
+}));
 
-//   return (
-//     <ListCardWrapper>
-//       <IssueWrapper>
-//         <ProjectImage src={props.data.picture} />
-//         <ProjectDescription>
-//           <ProjectTitle>{props.data.issue_name}</ProjectTitle>
-//           <p>Categories: {props.data.category}</p>
-//           <address>Location: {props.data.zipCode}</address>
-//           <p>Description: {props.data.description}</p>
-//           <UpvoteCount>
-//             <Icon name="arrow up" onClick={upvoteHandler} />
-//             {count} upvotes
-//           </UpvoteCount>
-//         </ProjectDescription>
-//       </IssueWrapper>
-//     </ListCardWrapper>
-//   );
-// }
+function ListCard(props) {
+  const classes = useStyles();
+  const currentUser = props.currentUser;
+
+  return (
+    <Card raised className={classes.card}>
+      <CardHeader
+        avatar={
+          currentUser ? (
+            <Avatar
+              aria-label="recipe"
+              className={classes.avatar}
+              src={!currentUser.picture ? profile : currentUser.picture}
+            ></Avatar>
+          ) : (
+            <Avatar
+              aria-label="recipe"
+              className={classes.avatar}
+              src={profile}
+            ></Avatar>
+          )
+        }
+        title={currentUser.username}
+        subheader={
+          currentUser.issues
+            ? `${currentUser.issues.length} issues created`
+            : currentUser.zipCode
+        }
+      />
+    </Card>
+  );
+}
 
 // const ListCardWrapper = styled.section`
 //   padding: 30px 0px;
@@ -62,4 +120,4 @@
 //   padding-top: 30px;
 // `;
 
-// export default ListCard;
+export default ListCard;
