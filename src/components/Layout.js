@@ -98,6 +98,7 @@ const Layout = props => {
               <HomeIcon style={location.pathname === "/" ? {color: "#3fff3f"} : {}} fontSize="large" />
             </IconButton>
           </HomeBottomLink>
+
           <ProfileBottomLink data-testid="profile-button" to="/profile">
             <IconButton>
               <AccountCircleIcon style={location.pathname === "/profile" ? {color: "#3fff3f"} : {}} fontSize="large" />
@@ -186,7 +187,6 @@ const FooterNav = styled.footer`
   position: fixed;
   bottom: 0;
   background-color: #5477bb;
-
   &&& {
     .MuiButtonGroup-root {
       width: 50%;
