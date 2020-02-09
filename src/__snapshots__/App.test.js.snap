@@ -8,7 +8,7 @@ exports[`Basic App functionality renders correctly according to snapshot 1`] = `
     >
       <div>
         <nav
-          class="sc-fzoiQi ekcLnO"
+          class="sc-fzoiQi eEJAZI"
         >
           <a
             href="/"
@@ -58,14 +58,13 @@ exports[`Basic App functionality renders correctly according to snapshot 1`] = `
         </div>
         <div
           class="ui center aligned middle aligned grid"
-          style="height: 100vh;"
         >
           <div
             class="column"
             style="max-width: 450px;"
           >
             <img
-              class="ui medium centered image"
+              class="ui small centered image"
               src="sign-in-4.png"
             />
             <h2
@@ -142,108 +141,6 @@ exports[`Basic App functionality renders correctly according to snapshot 1`] = `
             </div>
           </div>
         </div>
-        <footer
-          class="sc-fzqARJ btewwk"
-        >
-          <a
-            class="sc-fzpjYC faugyE"
-            href="/addIssue"
-          >
-            <button
-              aria-label="add"
-              class="MuiButtonBase-root MuiFab-root"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="MuiFab-label"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
-                  focusable="false"
-                  role="presentation"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-                  />
-                </svg>
-              </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
-            </button>
-          </a>
-          <div
-            class="MuiButtonGroup-root"
-            role="group"
-          >
-            <a
-              class="sc-fznJRM kdBnQP MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedText MuiButtonGroup-groupedTextHorizontal MuiButtonGroup-groupedText"
-              color="default"
-              href="/"
-              variant="text"
-            >
-              <button
-                class="MuiButtonBase-root MuiIconButton-root"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiIconButton-label"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </a>
-            <a
-              class="sc-fznxsB caNJdX MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedText MuiButtonGroup-groupedTextHorizontal MuiButtonGroup-groupedText"
-              color="default"
-              data-testid="profile-button"
-              href="/profile"
-              variant="text"
-            >
-              <button
-                class="MuiButtonBase-root MuiIconButton-root"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiIconButton-label"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </a>
-          </div>
-        </footer>
       </div>
     </div>
   </div>
