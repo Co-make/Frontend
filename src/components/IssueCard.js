@@ -87,7 +87,7 @@ function IssueCard(props) {
       })
       .then(res => {
         // let thisUser = res.data.filter( user => user.id === localId )
-        console.log("upvote data", res);
+        // console.log("upvote data", res);
         setUpvotes(res.data.upvotes);
       })
       .catch(err => console.log("OH NO AN ERROR HAPPENED", err));
@@ -102,7 +102,7 @@ function IssueCard(props) {
         }
       })
       .then(res => {
-        console.log("issue creator", res.data);
+        // console.log("issue creator", res.data);
         setIssueCreator(res.data);
       })
       .catch(err => console.log("OH NO AN ERROR HAPPENED", err));
@@ -113,8 +113,8 @@ function IssueCard(props) {
   }, []);
 
   let upvoteHandler = () => {
-    console.log("User Id", props.issue.user_id);
-    console.log("Issue Id", props.issue.id);
+    // console.log("User Id", props.issue.user_id);
+    // console.log("Issue Id", props.issue.id);
     axios
       .post(
         "https://co-make.herokuapp.com/upvotes/issue",

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Basic App functionality renders correctly 1`] = `
+exports[`Basic App functionality renders correctly according to snapshot 1`] = `
 <body>
   <div>
     <div
@@ -8,13 +8,13 @@ exports[`Basic App functionality renders correctly 1`] = `
     >
       <div>
         <nav
-          class="sc-eNQAEJ haUAcN"
+          class="sc-fzoiQi ekcLnO"
         >
           <a
             href="/"
           >
             <img
-              class="sc-kGXeez jzXojl"
+              class="sc-fzoXzr gEwLwE"
               src="CoMakeCircle.png"
             />
           </a>
@@ -135,6 +135,7 @@ exports[`Basic App functionality renders correctly 1`] = `
               New to us?
               <button
                 class="ui mini positive button register-button"
+                data-testid="register-button"
               >
                 Sign Up
               </button>
@@ -142,10 +143,10 @@ exports[`Basic App functionality renders correctly 1`] = `
           </div>
         </div>
         <footer
-          class="bottom-nav sc-hMqMXs cGctzT"
+          class="sc-fzqARJ btewwk"
         >
           <a
-            class="sc-kpOJdX diMgIW"
+            class="sc-fzpjYC faugyE"
             href="/addIssue"
           >
             <button
@@ -179,7 +180,7 @@ exports[`Basic App functionality renders correctly 1`] = `
             role="group"
           >
             <a
-              class="MuiButtonGroup-grouped MuiButtonGroup-groupedText MuiButtonGroup-groupedText sc-ckVGcZ cvNdbu"
+              class="sc-fznJRM kdBnQP MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedText MuiButtonGroup-groupedTextHorizontal MuiButtonGroup-groupedText"
               color="default"
               href="/"
               variant="text"
@@ -210,7 +211,7 @@ exports[`Basic App functionality renders correctly 1`] = `
               </button>
             </a>
             <a
-              class="MuiButtonGroup-grouped MuiButtonGroup-groupedText MuiButtonGroup-groupedText sc-dxgOiQ AMShI"
+              class="sc-fznxsB caNJdX MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedText MuiButtonGroup-groupedTextHorizontal MuiButtonGroup-groupedText"
               color="default"
               data-testid="profile-button"
               href="/profile"
