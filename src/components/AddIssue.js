@@ -53,9 +53,9 @@ function AddIssue(props) {
     <Dimmer active={ isLoading ? true : false }>
         <Loader>Loading</Loader>
       </Dimmer>
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid textAlign='center'  verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
-          <Image src={Upgrade} centered size="small" />
+          <Image src={Upgrade} centered size="tiny" />
         <Header as='h2' textAlign='center'>
           Add a new Issue
         </Header>

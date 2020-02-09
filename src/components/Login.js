@@ -43,11 +43,11 @@ function Login(props) {
       <Dimmer active={ isLoading ? true : false }>
         <Loader>Loading</Loader>
       </Dimmer>
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid textAlign='center' verticalAlign='middle'>
 
         <Grid.Column style={{ maxWidth: 450 }}>
 
-          <Image src={Welcome} centered size='medium' />
+          <Image src={Welcome} centered size='small' />
           <Header as='h2' color='teal' textAlign='center'>
 
              Log in to your account
@@ -83,7 +83,7 @@ function Login(props) {
           </Form>
           <Message>
             New to us?
-            <Button className="register-button"
+            <Button className="register-button" data-testid="register-button"
             onClick={()=> props.history.push('/register')}
             content='Sign Up'
             positive

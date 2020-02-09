@@ -37,9 +37,9 @@ function Register(props) {
     <Dimmer active={ isLoading ? true : false }>
         <Loader>Loading</Loader>
       </Dimmer>
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid textAlign='center'  verticalAlign='top'>
       <Grid.Column style={{ maxWidth: 450 }}>
-          <Image src={Success} centered size='small' />
+          <Image src={Success} centered size='tiny' />
         <Header as='h2' color='teal' textAlign='center'>
           Create a new account
         </Header>

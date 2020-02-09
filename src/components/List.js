@@ -21,8 +21,10 @@ function List(props) {
   let localId = JSON.parse(localStorage.getItem("id"));
   let token = JSON.parse(localStorage.getItem("token"));
 
+
   useEffect(() => {
     setLoading(true);
+
     axios
       .get("https://co-make.herokuapp.com/issues", {
         headers: {
@@ -38,7 +40,7 @@ function List(props) {
             }
           })
           .then(res => {
-            console.log("USER DATA FROM SERVER", res);
+            // console.log("USER DATA FROM SERVER", res);
             setCurrentUser(res.data);
             setIssuesCreated(res.data.issues.length);
             setLoading(false);
@@ -51,16 +53,15 @@ function List(props) {
       .catch(err => {
         console.log("OH NO AN ERROR HAPPENED", err);
         setLoading(false);
-      });
-  }, []);
-  // Scroll to top on page change
-  useEffect(() => {
-    scroll.scrollToTop({ smooth: false });
-  }, [activePage]);
-  // On page change set active page
-  const paginate = pageNumber => {
-    return setActivepage(pageNumber);
-  };
+      })
+
+    },[])
+    // Scroll to top on page change
+    useEffect(() => { scroll.scrollToTop({smooth: false});}, [activePage])
+    // On page change set active page
+    const paginate = pageNumber => {
+    return  setActivepage(pageNumber)
+    };
 
   // Pagination
   const indexOfLastIssue = activePage * issuesPerPage;

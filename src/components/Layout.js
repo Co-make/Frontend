@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 // import {ReactComponent as CoMakeLogo} from "../images/logo2.svg";
 import CoMakeLogo from "../images/CoMakeCircle.png";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { Link, useLocation } from "react-router-dom";
+// import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
@@ -21,6 +21,7 @@ import List from "@material-ui/core/List";
 
 const Layout = props => {
   const [menu, setMenu] = useState(false);
+  let location = useLocation();
 
   const logOut = () => {
     localStorage.removeItem("zipcode");
@@ -84,7 +85,8 @@ const Layout = props => {
       {props.children}
 
       {/* Footer */}
-      <FooterNav className="bottom-nav">
+      {location.pathname !== "/login" && location.pathname !== "/register" ?
+      <FooterNav path={location.pathname}>
         <AddIssueLink to="/addIssue">
           <Fab aria-label="add">
             <AddIcon fontSize="large" />
@@ -93,17 +95,19 @@ const Layout = props => {
         <ButtonGroup size="large" variant="text">
           <HomeBottomLink to="/">
             <IconButton>
-              <HomeIcon fontSize="large" />
+              <HomeIcon style={location.pathname === "/" ? {color: "#3fff3f"} : {}} fontSize="large" />
             </IconButton>
           </HomeBottomLink>
 
           <ProfileBottomLink data-testid="profile-button" to="/profile">
             <IconButton>
-              <AccountCircleIcon fontSize="large" />
+              <AccountCircleIcon style={location.pathname === "/profile" ? {color: "#3fff3f"} : {}} fontSize="large" />
             </IconButton>
           </ProfileBottomLink>
         </ButtonGroup>
       </FooterNav>
+      : <></>
+      }
     </div>
   );
 };
@@ -160,6 +164,7 @@ const Nav = styled.nav`
     color: #ffff;
   }
   height: 80px;
+  margin-bottom: 10px;
   font-size: 1.2rem;
   font-weight: bold;
   width: 100%;
@@ -188,8 +193,8 @@ const FooterNav = styled.footer`
       align-self: center;
     }
     .MuiIconButton-root {
-      /* background-color: yellow; */
-      /* width: 50%; */
+      //  background-color: yellow;
+      //  width: 50%;
       border-radius: 5%;
       width: 100%;
     }
@@ -199,10 +204,11 @@ const FooterNav = styled.footer`
       border-radius: 100%;
       z-index: 5;
       color: white;
-      background-color: #5477bb;
-      /* border: 1px solid red; */
+      background-color: ${props => props.path === "/addIssue" ? "#3fff3f" : "#5477bb"};
+      //  border: 1px solid red;
     }
   }
 `;
+
 
 export default Layout;
