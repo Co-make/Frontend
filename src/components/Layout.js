@@ -23,10 +23,6 @@ const Layout = props => {
   const [menu, setMenu] = useState(false);
   let location = useLocation();
 
-  useEffect(()=> {
-    console.log("Location Here:", location.pathname)
-  }, [location]);
-
   const logOut = () => {
     localStorage.removeItem("zipcode");
     localStorage.removeItem("id");
